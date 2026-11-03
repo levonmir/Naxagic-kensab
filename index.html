@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Հայաստանի Բնության Հանրագիտարան</title>
+<!--
+  ՆԿԱՐՆԵՐԻ ՄԱՍԻՆ: Նկարները ավտոմատ բեռնվում են Վիքիպեդիայի (Wikimedia Commons) API-ից՝
+  յուրաքանչյուր տեսակի հոդվածի գլխավոր նկարով, ուստի պահանջվում է ինտերնետ կապ։
+  Կարգավորվում է WT ցուցակով (սկրիպտի մեջ): Եթե առաջին հոդվածը նկար չունի, փորձվում է հաջորդը։
+  Վարդակուկ ոսկեզօծի (Prometheum chrysanthum) համար, եթե Վիքիպեդիայում նկար չգտնվի,
+  օգտագործվում է Adonis vernalis-ի դեղին ծաղկի նկարը։
+-->
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{font-family:"Noto Sans Armenian","Segoe UI",Arial,sans-serif;background:#f8f9fa;color:#202122}
@@ -37,7 +44,10 @@ h2.sec{border-bottom:1px solid #a2a9b1;font-size:1.4rem;margin:1.2rem 0 .5rem;fo
   </aside>
   <main id="main" class="flex-1 bg-white border border-gray-300 rounded p-5 min-h-[60vh]"></main>
 </div>
-<footer class="text-center text-sm text-gray-500 py-6">Դպրոցական ուսումնական նախագիծ · Հայաստանի բնություն</footer>
+<footer class="text-center text-sm text-gray-500 py-6">
+  Դպրոցական ուսումնական նախագիծ · Հայաստանի բնություն<br>
+  Պատկերների աղբյուր՝ Վիքիպեդիա և Wikimedia Commons
+</footer>
 
 <script>
 const R="Կարմիր գրքում գրանցված",E="Վտանգված",V="Հազվագյուտ";
@@ -64,9 +74,75 @@ d:["Ջրային բույս է՝ ջրի երես լողացող լայն տեր�
 d:["Ցեղ է, որի ծաղիկները չորանալուց հետո պահպանում են իրենց գույնը։ Դրանից էլ՝ «անթառամ» անվանումը։","Հայաստանում հանդիպում են մի քանի տեսակներ՝ չոր լանջերին և բաց տարածքներում։","Ծաղիկները գրավում են փոշոտող միջատներին, իսկ բույսը օգտագործվում է ժողովրդական բժշկության մեջ։","Գերհավաքումը նվազեցնում է պոպուլյացիաները, ուստի որոշ տեսակներ հազվագյուտ են։"]}
 ];
 const SEC=["Ընդհանուր նկարագրություն","Տարածվածություն և ապրելավայրեր","Կենսակերպ և էկոլոգիական նշանակություն","Պահպանության վիճակը"];
-const IMG=["photo-1501785888041-af3ef285b470","photo-1470071459604-3b5ec3a7fe05","photo-1441974231531-c6227db76b6e","photo-1500382017468-9049fed747ef","photo-1464822759023-fed622ff2c3b"];
-const u=(i,w=600)=>`https://images.unsplash.com/${IMG[i%IMG.length]}?auto=format&fit=crop&w=${w}&q=70`;
-const fb="this.style.display='none'";
+
+/* Վիքիպեդիայի հոդվածների վերնագրեր (ըստ հերթականության՝ առաջինը, որը նկար ունի) */
+const WT=[
+ ["Panthera_pardus_tulliana"],            /* 1. Կովկասյան ընձառյուծ */
+ ["Armenian_mouflon","Mouflon"],          /* 2. Հայկական մուֆլոն */
+ ["Wild_goat"],                           /* 3. Բեզոարյան այծ */
+ ["Brown_bear"],                          /* 4. Գորշ արջ */
+ ["Black_stork"],                         /* 5. Սև արագիլ */
+ ["Tulipa_sosnowskyi","Tulip"],           /* 6. Վարդակակաչ */
+ ["Gladiolus_dzhavakheticus","Gladiolus"],/* 7. Թրաշուշան */
+ ["Prometheum_chrysanthum","Adonis_vernalis"], /* 8. Վարդակուկ / դեղին ծաղիկ */
+ ["Nuphar_lutea"],                        /* 9. Կոկոռ դեղին */
+ ["Helichrysum"]                          /* 10. Անթառամ */
+];
+const API="https://en.wikipedia.org/api/rest_v1/";
+const BAD=/map|range|distribution|status|iucn|symbol|icon|logo|flag|coat|stamp|cites|skull|skeleton|diagram|chart|illustration|drawing|plate|painting|taxobox/i;
+const sz=(s,n)=>s.replace(/\/\d+px-/,"/"+n+"px-");
+const IMGS={};
+function wiki(i){
+  if(IMGS[i])return IMGS[i];
+  return IMGS[i]=(async()=>{
+    for(const t of WT[i]){
+      try{
+        const r=await fetch(API+"page/summary/"+t);
+        if(!r.ok)continue;
+        const j=await r.json();
+        const lead=j.originalimage||j.thumbnail;
+        if(!lead)continue;
+        const base=(j.thumbnail||j.originalimage).source;
+        const out={main:base,gal:[]};
+        const leadName=decodeURIComponent(lead.source.split("/").filter(Boolean).pop()).replace(/^\d+px-/,"").replace(/_/g," ");
+        try{
+          const title=(j.titles&&j.titles.canonical)||t;
+          const m=await fetch(API+"page/media-list/"+encodeURIComponent(title));
+          if(m.ok){
+            const mj=await m.json();
+            for(const it of (mj.items||[])){
+              if(it.type!=="image"||!it.srcset||!it.srcset.length)continue;
+              const nm=(it.title||"").replace(/^File:/,"").replace(/_/g," ");
+              if(!/\.(jpe?g|webp)$/i.test(nm)||BAD.test(nm)||nm===leadName)continue;
+              let s=it.srcset[0].src;
+              if(s.indexOf("//")===0)s="https:"+s;
+              out.gal.push(s);
+              if(out.gal.length>=3)break;
+            }
+          }
+        }catch(e){}
+        while(out.gal.length<3)out.gal.push(out.gal[0]||base);
+        return out;
+      }catch(e){}
+    }
+    return null;
+  })();
+}
+function setImg(el,u){
+  if(!u){el.style.display="none";return;}
+  el.onerror=()=>{ if(el.getAttribute("src")!==u){el.src=u;}else{el.style.display="none";} };
+  el.src=sz(u,500);
+}
+function hydrate(){
+  document.querySelectorAll("img[data-wi]").forEach(el=>{
+    const i=+el.dataset.wi,k=el.dataset.k;
+    wiki(i).then(d=>{
+      if(!d){el.style.display="none";return;}
+      setImg(el,k==="m"?d.main:d.gal[+k]);
+    });
+  });
+}
+
 let cat="all",tag=null,query="";
 const $=id=>document.getElementById(id);
 
@@ -91,11 +167,12 @@ function renderList(){
   <div class="grid sm:grid-cols-2 gap-4">${f.map(x=>`
     <a href="#a${x.i}" class="border rounded overflow-hidden hover:shadow-md transition bg-white block">
       <div class="h-36 bg-emerald-100 flex items-center justify-center text-6xl relative">${x.e}
-        <img src="${u(x.i)}" alt="${x.n}" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div>
+        <img data-wi="${x.i}" data-k="m" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
       <div class="p-3"><h3 class="font-bold text-blue-800">${x.n}</h3>
       <p class="sci text-sm text-gray-600">${x.l}</p>
       <div class="mt-2 flex flex-wrap gap-1">${x.tg.map(b=>`<span class="text-xs bg-amber-100 text-amber-800 px-2 rounded-full">${b}</span>`).join("")}</div></div>
     </a>`).join("")||"<p>Ոչինչ չի գտնվել։</p>"}</div>`;
+  hydrate();
 }
 function renderArticle(i){
   const x=D[i];
@@ -105,7 +182,7 @@ function renderArticle(i){
   <table class="ib float-none md:float-right md:ml-5 mb-4 w-full md:w-72 border border-gray-300 bg-gray-50">
     <tr><td colspan="2" class="text-center font-bold bg-emerald-100">${x.n}</td></tr>
     <tr><td colspan="2" class="p-0"><div class="h-44 bg-emerald-100 flex items-center justify-center text-7xl relative">${x.e}
-      <img src="${u(i,500)}" alt="${x.n}" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div></td></tr>
+      <img data-wi="${i}" data-k="m" alt="${x.n}" class="absolute inset-0 w-full h-full object-cover"></div></td></tr>
     <tr><th colspan="2" class="text-center">Գիտական դասակարգում</th></tr>
     <tr><th>Թագավորություն</th><td>${x.k}</td></tr>
     <tr><th>Դաս</th><td>${x.c}</td></tr>
@@ -120,8 +197,9 @@ function renderArticle(i){
   <h2 class="sec">Պատկերասրահ</h2>
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${[0,1,2].map(k=>`
     <figure class="border rounded overflow-hidden"><div class="h-36 bg-emerald-100 flex items-center justify-center text-5xl relative">${x.e}
-    <img src="${u(i+k+1,400)}" alt="${x.n}" loading="lazy" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div>
+    <img data-wi="${i}" data-k="${k}" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
     <figcaption class="text-xs p-2 text-gray-600">${x.n}՝ պատկեր ${k+1}</figcaption></figure>`).join("")}</div>`;
+  hydrate();
   window.scrollTo(0,0);
 }
 function route(){
