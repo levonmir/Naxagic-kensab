@@ -1,0 +1,139 @@
+```html
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Հայաստանի Բնության Հանրագիտարան</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:"Noto Sans Armenian","Segoe UI",Arial,sans-serif;background:#f8f9fa;color:#202122}
+.sci{font-style:italic}
+.ib td,.ib th{padding:4px 8px;border-top:1px solid #c8ccd1;vertical-align:top;font-size:.85rem}
+.ib th{text-align:left;background:#eaecf0;width:42%}
+h2.sec{border-bottom:1px solid #a2a9b1;font-size:1.4rem;margin:1.2rem 0 .5rem;font-family:Georgia,serif}
+</style>
+</head>
+<body>
+<header class="bg-white border-b border-gray-300">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-4 justify-between">
+    <div class="cursor-pointer" onclick="go('')">
+      <h1 class="text-2xl font-serif font-bold text-emerald-800">Հայաստանի Բնության Հանրագիտարան</h1>
+      <p class="text-sm text-gray-500">Դպրոցական ուսումնական նախագիծ</p>
+    </div>
+    <input id="q" type="search" placeholder="Որոնում..." aria-label="Որոնում"
+      class="border border-gray-400 rounded px-3 py-2 w-full sm:w-72 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+  </div>
+  <nav class="max-w-6xl mx-auto px-4 flex gap-1" id="tabs"></nav>
+</header>
+
+<div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row gap-6">
+  <aside class="md:w-64 shrink-0">
+    <div class="md:sticky md:top-4 bg-white border border-gray-300 rounded p-3">
+      <h3 class="font-bold mb-2">Բովանդակություն</h3>
+      <ol id="toc" class="text-sm space-y-1 text-blue-700"></ol>
+      <h3 class="font-bold mt-4 mb-2">Պահպանության կարգավիճակ</h3>
+      <div id="badges" class="flex flex-wrap gap-2"></div>
+    </div>
+  </aside>
+  <main id="main" class="flex-1 bg-white border border-gray-300 rounded p-5 min-h-[60vh]"></main>
+</div>
+<footer class="text-center text-sm text-gray-500 py-6">Դպրոցական ուսումնական նախագիծ · Հայաստանի բնություն</footer>
+
+<script>
+const R="Կարմիր գրքում գրանցված",E="Վտանգված",V="Հազվագյուտ";
+const D=[
+{n:"Կովկասյան ընձառյուծ",l:"Panthera pardus tulliana",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Կատվազգիներ",g:"Panthera",tg:[R,E],h:"Լեռնային անտառներ, ժայռոտ կիրճեր",r:"Հայաստանի հարավ՝ Զանգեզուր, Խոսրովի անտառ",e:"🐆",
+d:["Խոշոր կատվազգի գիշատիչ է՝ դեղնավուն մորթով և սև բծերով։ Տարածաշրջանի խոշորագույն կատվազգին է։","Հանդիպում է հիմնականում հարավային լեռնային շրջաններում՝ Զանգեզուրում և Խոսրովի արգելոցի շրջակայքում։","Սնվում է վայրի սմբակավորներով։ Որպես գագաթնային գիշատիչ՝ կարգավորում է որսակենդանիների թիվը։","Գրանցված է Հայաստանի Կարմիր գրքում։ Սպառնում են որսագողությունը և ապրելավայրերի կորուստը։"]},
+{n:"Հայկական մուֆլոն",l:"Ovis gmelini gmelini",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Սնամեջեղջյուրավորներ",g:"Ovis",tg:[R,E],h:"Չոր լեռնային տափաստաններ, քարքարոտ լանջեր",r:"Վայոց ձոր, Սյունիք, Գեղարքունիք",e:"🐏",
+d:["Վայրի ոչխար է։ Արուներն ունեն մեծ, պարուրաձև ոլորված եղջյուրներ։","Ապրում է քարքարոտ լեռնալանջերին, հատկապես Հայաստանի հարավում և արևելքում։","Սնվում է խոտաբույսերով, հոտերով տեղափոխվում է լանջերի միջև։ Կարևոր որս է ընձառյուծի համար։","Գրանցված է Կարմիր գրքում։ Թիվը նվազել է որսագողության և արածեցման պատճառով։"]},
+{n:"Բեզոարյան այծ",l:"Capra aegagrus",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Սնամեջեղջյուրավորներ",g:"Capra",tg:[R,V],h:"Ժայռեր, կիրճեր, ալպյան մարգագետիններ",r:"Խոսրովի անտառ, Շիկահող, Զանգեզուր",e:"🐐",
+d:["Վայրի այծ է՝ երկար, կոր եղջյուրներով։ Համարվում է ընտանի այծի նախնին։","Հանդիպում է Հայաստանի հարավի քարքարոտ լեռներում՝ արգելոցների տարածքում։","Շատ ճարպիկ է ժայռերի վրա։ Սնվում է խոտով և թփերով, և ընձառյուծի սննդի հիմքն է։","Գրանցված է Կարմիր գրքում։ Պահպանվում է հատուկ պահպանվող տարածքներում։"]},
+{n:"Կովկասյան Գորշ Արջ",l:"Ursus arctos arctos",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Արջազգիներ",g:"Ursus",tg:[V],h:"Լեռնային անտառներ և մարգագետիններ",r:"Հյուսիսային և հարավային անտառային շրջաններ",e:"🐻",
+d:["Խոշոր, գորշ մորթով ամենակեր կենդանի է։ Ձմռանը մտնում է ձմեռային քնի։","Ապրում է Հայաստանի անտառապատ լեռներում՝ Լոռիում, Տավուշում, Սյունիքում։","Սնվում է պտուղներով, արմատներով, միջատներով և մսով։ Օգնում է սերմերի տարածմանը։","Հայաստանում թիվը սահմանափակ է։ Պահպանության համար կարևոր են անտառների պահպանումը և մարդու հետ հակամարտությունների նվազեցումը։"]},
+{n:"Սև արագիլ",l:"Ciconia nigra",t:"a",k:"Կենդանիներ",c:"Թռչուններ",f:"Արագիլազգիներ",g:"Ciconia",tg:[R,V],h:"Անտառապատ գետահովիտներ, ժայռեր",r:"Դեբեդի, Աղստևի և Արփայի կիրճեր",e:"🐦",
+d:["Խոշոր թռչուն է՝ սև փետրավորմամբ, սպիտակ որովայնով և կարմիր կտուցով։","Բույն է դնում հանգիստ անտառներում և ժայռերի վրա, ապրում է գետերի մոտ։","Սնվում է ձկներով և երկկենցաղներով։ Գաղթող թռչուն է։","Գրանցված է Կարմիր գրքում։ Սպառնում են անհանգստությունը և ջրային ապրելավայրերի փոփոխությունը։"]},
+{n:"Վարդակակաչ Սոսնովսկու",l:"Tulipa sosnowskyi",t:"p",k:"Բույսեր",c:"Միաշաքիլավորներ",f:"Շուշանազգիներ",g:"Tulipa",tg:[R,V],h:"Լեռնային տափաստաններ, քարքարոտ լանջեր",r:"Հայկական լեռնաշխարհ, Հայաստանի լեռնային շրջաններ",e:"🌷",
+d:["Վառ կարմիր ծաղիկներով սոխուկավոր բույս է, որը ծաղկում է գարնանը։","Աճում է չոր լեռնալանջերին և տափաստանային տարածքներում։","Գարնանային առաջին ծաղիկներից է և սնունդ է տալիս փոշոտող միջատներին։","Գրանցված է Կարմիր գրքում։ Սպառնում են ծաղիկների պոկումը և արածեցումը։"]},
+{n:"Թրաշուշան Ջավախքի",l:"Gladiolus dzhavakheticus",t:"p",k:"Բույսեր",c:"Միաշաքիլավորներ",f:"Իրիսազգիներ",g:"Gladiolus",tg:[R,V],h:"Լեռնային մարգագետիններ",r:"Հայաստան և Ջավախք",e:"🌺",
+d:["Բազմամյա, թրաձև տերևներով և վարդագույն-մանուշակագույն ծաղիկներով բույս է։","Աճում է բարձրադիր մարգագետիններում Հայաստանի հյուսիսում և Ջավախքում։","Ծաղկում է ամռանը և նպաստում է մարգագետնային կենսաբազմազանությանը։","Գրանցված է Կարմիր գրքում։ Սպառնում են գերարածեցումը և ծաղիկների հավաքումը։"]},
+{n:"Վարդակուկ ոսկեզօծ",l:"Prometheum chrysanthum",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Հաստատերևազգիներ",g:"Prometheum",tg:[V],h:"Քարքարոտ լանջեր, ժայռերի ճեղքեր",r:"Հայաստանի լեռնային շրջաններ",e:"🌼",
+d:["Մսոտ տերևներով, վարդակի տեսքով բույս է՝ դեղին ծաղիկներով։","Աճում է քարքարոտ լանջերին և ժայռերի ճեղքերում։","Մսոտ տերևներում ջուր է կուտակում, ինչը թույլ է տալիս դիմանալ չորային պայմաններին։","Համարվում է հազվագյուտ բույս։ Պահպանության համար կարևոր է ժայռոտ ապրելավայրերի անխախտությունը։"]},
+{n:"Կոկոռ դեղին",l:"Nuphar lutea",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Ջրաշուշանազգիներ",g:"Nuphar",tg:[V],h:"Լճեր, դանդաղահոս ջրեր",r:"Ջրային և ճահճային վայրեր",e:"🪷",
+d:["Ջրային բույս է՝ ջրի երես լողացող լայն տերևներով և դեղին ծաղիկներով։","Աճում է մաքուր, դանդաղահոս կամ լճային ջրերում։","Տերևները ստվեր են տալիս ջրին, իսկ բույսը ապաստան է ձկների և երկկենցաղների համար։","Վտանգված է խոնավ ապրելավայրերի չորացման և ջրի աղտոտման պատճառով։"]},
+{n:"Անթառամ",l:"Helichrysum",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Բարդածաղկավորներ",g:"Helichrysum",tg:[V],h:"Չոր լանջեր, ավազոտ և քարքարոտ հողեր",r:"Հայաստանի տարբեր շրջաններ",e:"🌻",
+d:["Ցեղ է, որի ծաղիկները չորանալուց հետո պահպանում են իրենց գույնը։ Դրանից էլ՝ «անթառամ» անվանումը։","Հայաստանում հանդիպում են մի քանի տեսակներ՝ չոր լանջերին և բաց տարածքներում։","Ծաղիկները գրավում են փոշոտող միջատներին, իսկ բույսը օգտագործվում է ժողովրդական բժշկության մեջ։","Գերհավաքումը նվազեցնում է պոպուլյացիաները, ուստի որոշ տեսակներ հազվագյուտ են։"]}
+];
+const SEC=["Ընդհանուր նկարագրություն","Տարածվածություն և ապրելավայրեր","Կենսակերպ և էկոլոգիական նշանակություն","Պահպանության վիճակը"];
+const IMG=["photo-1501785888041-af3ef285b470","photo-1470071459604-3b5ec3a7fe05","photo-1441974231531-c6227db76b6e","photo-1500382017468-9049fed747ef","photo-1464822759023-fed622ff2c3b"];
+const u=(i,w=600)=>`https://images.unsplash.com/${IMG[i%IMG.length]}?auto=format&fit=crop&w=${w}&q=70`;
+const fb="this.style.display='none'";
+let cat="all",tag=null,query="";
+const $=id=>document.getElementById(id);
+
+function filtered(){
+  return D.map((x,i)=>({...x,i})).filter(x=>
+    (cat==="all"||x.t===cat)&&(!tag||x.tg.includes(tag))&&
+    (x.n+x.l+x.d.join(" ")).toLowerCase().includes(query.toLowerCase()));
+}
+function go(h){location.hash=h;route();}
+function renderChrome(){
+  $("tabs").innerHTML=[["all","Բոլորը"],["a","Կենդանիներ"],["p","Բույսեր"]].map(([k,t])=>
+    `<button onclick="cat='${k}';go('');" class="px-4 py-2 text-sm border-b-2 ${cat===k?'border-emerald-700 font-bold text-emerald-800':'border-transparent text-gray-600'}">${t}</button>`).join("");
+  $("badges").innerHTML=[R,E,V].map(b=>
+    `<button onclick="tag=tag==='${b}'?null:'${b}';go('');" class="text-xs px-2 py-1 rounded-full border ${tag===b?'bg-emerald-700 text-white':'bg-gray-50'}">${b}</button>`).join("");
+  const f=filtered();
+  $("toc").innerHTML=f.length?f.map((x,k)=>`<li><a href="#a${x.i}" class="hover:underline">${k+1}. ${x.n}</a></li>`).join(""):"<li class='text-gray-500'>Արդյունք չկա</li>";
+}
+function renderList(){
+  const f=filtered();
+  $("main").innerHTML=`<h2 class="text-2xl font-serif mb-1">Բոլոր հոդվածները</h2>
+  <p class="text-sm text-gray-500 mb-4">Գտնվել է հոդված՝ ${f.length}</p>
+  <div class="grid sm:grid-cols-2 gap-4">${f.map(x=>`
+    <a href="#a${x.i}" class="border rounded overflow-hidden hover:shadow-md transition bg-white block">
+      <div class="h-36 bg-emerald-100 flex items-center justify-center text-6xl relative">${x.e}
+        <img src="${u(x.i)}" alt="${x.n}" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div>
+      <div class="p-3"><h3 class="font-bold text-blue-800">${x.n}</h3>
+      <p class="sci text-sm text-gray-600">${x.l}</p>
+      <div class="mt-2 flex flex-wrap gap-1">${x.tg.map(b=>`<span class="text-xs bg-amber-100 text-amber-800 px-2 rounded-full">${b}</span>`).join("")}</div></div>
+    </a>`).join("")||"<p>Ոչինչ չի գտնվել։</p>"}</div>`;
+}
+function renderArticle(i){
+  const x=D[i];
+  $("main").innerHTML=`<a href="#" class="text-sm text-blue-700 hover:underline">← Վերադառնալ ցանկին</a>
+  <h2 class="text-3xl font-serif border-b border-gray-400 mt-2 pb-1">${x.n}</h2>
+  <p class="sci text-gray-600 mb-3">${x.l}</p>
+  <table class="ib float-none md:float-right md:ml-5 mb-4 w-full md:w-72 border border-gray-300 bg-gray-50">
+    <tr><td colspan="2" class="text-center font-bold bg-emerald-100">${x.n}</td></tr>
+    <tr><td colspan="2" class="p-0"><div class="h-44 bg-emerald-100 flex items-center justify-center text-7xl relative">${x.e}
+      <img src="${u(i,500)}" alt="${x.n}" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div></td></tr>
+    <tr><th colspan="2" class="text-center">Գիտական դասակարգում</th></tr>
+    <tr><th>Թագավորություն</th><td>${x.k}</td></tr>
+    <tr><th>Դաս</th><td>${x.c}</td></tr>
+    <tr><th>Ընտանիք</th><td>${x.f}</td></tr>
+    <tr><th>Ցեղ</th><td class="sci">${x.g}</td></tr>
+    <tr><th>Պահպանության կարգավիճակ</th><td>${x.tg.join(", ")}</td></tr>
+    <tr><th>Ապրելավայր</th><td>${x.h}</td></tr>
+    <tr><th>Տարածվածություն</th><td>${x.r}</td></tr>
+  </table>
+  ${SEC.map((s,k)=>`<h2 class="sec">${k+1}. ${s}</h2><p class="leading-7">${x.d[k]}</p>`).join("")}
+  <div class="clear-both"></div>
+  <h2 class="sec">Պատկերասրահ</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${[0,1,2].map(k=>`
+    <figure class="border rounded overflow-hidden"><div class="h-36 bg-emerald-100 flex items-center justify-center text-5xl relative">${x.e}
+    <img src="${u(i+k+1,400)}" alt="${x.n}" loading="lazy" onerror="${fb}" class="absolute inset-0 w-full h-full object-cover"></div>
+    <figcaption class="text-xs p-2 text-gray-600">${x.n}՝ պատկեր ${k+1}</figcaption></figure>`).join("")}</div>`;
+  window.scrollTo(0,0);
+}
+function route(){
+  renderChrome();
+  const m=location.hash.match(/^#a(\d+)$/);
+  m&&D[m[1]]?renderArticle(+m[1]):renderList();
+}
+$("q").addEventListener("input",e=>{query=e.target.value;if(location.hash)history.replaceState(null,"",location.pathname);route();});
+window.addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
+```
