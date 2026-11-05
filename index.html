@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Հայաստանի Բնության Հանրագիտարան</title>
-<!--
-  ՆԿԱՐՆԵՐԻ ՄԱՍԻՆ: Նկարները ավտոմատ բեռնվում են Վիքիպեդիայի (Wikimedia Commons) API-ից՝
-  յուրաքանչյուր տեսակի հոդվածի գլխավոր նկարով, ուստի պահանջվում է ինտերնետ կապ։
--->
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body{font-family:"Noto Sans Armenian","Segoe UI",Arial,sans-serif;background:#f8f9fa;color:#202122}
@@ -49,96 +45,178 @@ h2.sec{border-bottom:1px solid #a2a9b1;font-size:1.4rem;margin:1.2rem 0 .5rem;fo
 <script>
 const R="Կարմիր գրքում գրանցված",E="Վտանգված",V="Հազվագյուտ";
 const D=[
-{n:"Կովկասյան ընձառյուծ",l:"Panthera pardus tulliana",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Կատվազգիներ",g:"Panthera",tg:[R,E],h:"Լեռնային անտառներ, ժայռոտ կիրճեր",r:"Հայաստանի հարավ՝ Զանգեզուր, Խոսրովի անտառ",e:"🐆",
-d:["Խոշոր կատվազգի գիշատիչ է՝ դեղնավուն մորթով և սև բծերով։ Տարածաշրջանի խոշորագույն կատվազգին է։","Հանդիպում է հիմնականում հարավային լեռնային շրջաններում՝ Զանգեզուրում և Խոսրովի արգելոցի շրջակայքում։","Սնվում է վայրի սմբակավորներով։ Որպես գագաթնային գիշատիչ՝ կարգավորում է որսակենդանիների թիվը։","Գրանցված է Հայաստանի Կարմիր գրքում։ Սպառնում են որսագողությունը և ապրելավայրերի կորուստը։"]},
-{n:"Հայկական մուֆլոն",l:"Ovis gmelini gmelini",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Սնամեջեղջյուրավորներ",g:"Ovis",tg:[R,E],h:"Չոր լեռնային տափաստաններ, քարքարոտ լանջեր",r:"Վայոց ձոր, Սյունիք, Գեղարքունիք",e:"🐏",
-d:["Վայրի ոչխար է։ Արուներն ունեն մեծ, պարուրաձև ոլորված եղջյուրներ։","Ապրում է քարքարոտ լեռնալանջերին, հատկապես Հայաստանի հարավում և արևելքում։","Սնվում է խոտաբույսերով, հոտերով տեղափոխվում է լանջերի միջև։ Կարևոր որս է ընձառյուծի համար։","Գրանցված է Կարմիր գրքում։ Թիվը նվազել է որսագողության և արածեցման պատճառով։"]},
-{n:"Բեզոարյան այծ",l:"Capra aegagrus",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Սնամեջեղջյուրավորներ",g:"Capra",tg:[R,V],h:"Ժայռեր, կիրճեր, ալպյան մարգագետիններ",r:"Խոսրովի անտառ, Շիկահող, Զանգեզուր",e:"🐐",
-d:["Վայրի այծ է՝ երկար, կոր եղջյուրներով։ Համարվում է ընտանի այծի նախնին։","Հանդիպում է Հայաստանի հարավի քարքարոտ լեռներում՝ արգելոցների տարածքում։","Շատ ճարպիկ է ժայռերի վրա։ Սնվում է խոտով և թփերով, և ընձառյուծի սննդի հիմքն է։","Գրանցված է Կարմիր գրքում։ Պահպանվում է հատուկ պահպանվող տարածքներում։"]},
-{n:"Կովկասյան Գորշ Արջ",l:"Ursus arctos arctos",t:"a",k:"Կենդանիներ",c:"Կաթնասուններ",f:"Արջազգիներ",g:"Ursus",tg:[V],h:"Լեռնային անտառներ և մարգագետիններ",r:"Հյուսիսային և հարավային անտառային շրջաններ",e:"🐻",
-d:["Խոշոր, գորշ մորթով ամենակեր կենդանի է։ Ձմռանը մտնում է ձմեռային քնի։","Ապրում է Հայաստանի անտառապատ լեռներում՝ Լոռիում, Տավուշում, Սյունիքում։","Սնվում է պտուղներով, արմատներով, միջատներով և մսով։ Օգնում է սերմերի տարածմանը։","Հայաստանում թիվը սահմանափակ է։ Պահպանության համար կարևոր են անտառների պահպանումը և մարդու հետ հակամարտությունների նվազեցումը։"]},
-{n:"Սև արագիլ",l:"Ciconia nigra",t:"a",k:"Կենդանիներ",c:"Թռչուններ",f:"Արագիլազգիներ",g:"Ciconia",tg:[R,V],h:"Անտառապատ գետահովիտներ, ժայռեր",r:"Դեբեդի, Աղստևի և Արփայի կիրճեր",e:"🐦",
-d:["Խոշոր թռչուն է՝ սև փետրավորմամբ, սպիտակ որովայնով և կարմիր կտուցով։","Բույն է դնում հանգիստ անտառներում և ժայռերի վրա, ապրում է գետերի մոտ։","Սնվում է ձկներով և երկկենցաղներով։ Գաղթող թռչուն է։","Գրանցված է Կարմիր գրքում։ Սպառնում են անհանգստությունը և ջրային ապրելավայրերի փոփոխությունը։"]},
-{n:"Վարդակակաչ Սոսնովսկու",l:"Tulipa sosnowskyi",t:"p",k:"Բույսեր",c:"Միաշաքիլավորներ",f:"Շուշանազգիներ",g:"Tulipa",tg:[R,V],h:"Լեռնային տափաստաններ, քարքարոտ լանջեր",r:"Հայկական լեռնաշխարհ, Հայաստանի լեռնային շրջաններ",e:"🌷",
-d:["Վառ կարմիր ծաղիկներով սոխուկավոր բույս է, որը ծաղկում է գարնանը։","Աճում է չոր լեռնալանջերին և տափաստանային տարածքներում։","Գարնանային առաջին ծաղիկներից է և սնունդ է տալիս փոշոտող միջատներին։","Գրանցված է Կարմիր գրքում։ Սպառնում են ծաղիկների պոկումը և արածեցումը։"]},
-{n:"Թրաշուշան Ջավախքի",l:"Gladiolus dzhavakheticus",t:"p",k:"Բույսեր",c:"Միաշաքիլավորներ",f:"Իրիսազգիներ",g:"Gladiolus",tg:[R,V],h:"Լեռնային մարգագետիններ",r:"Հայաստան և Ջավախք",e:"🌺",
-d:["Բազմամյա, թրաձև տերևներով և վարդագույն-մանուշակագույն ծաղիկներով բույս է։","Աճում է բարձրադիր մարգագետիններում Հայաստանի հյուսիսում և Ջավախքում։","Ծաղկում է ամռանը և նպաստում է մարգագետնային կենսաբազմազանությանը։","Գրանցված է Կարմիր գրքում։ Սպառնում են գերարածեցումը և ծաղիկների հավաքումը։"]},
-{n:"Վարդակուկ ոսկեզօծ",l:"Prometheum chrysanthum",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Հաստատերևազգիներ",g:"Prometheum",tg:[V],h:"Քարքարոտ լանջեր, ժայռերի ճեղքեր",r:"Հայաստանի լեռնային շրջաններ",e:"🌼",
-d:["Մսոտ տերևներով, վարդակի տեսքով բույս է՝ դեղին ծաղիկներով։","Աճում է քարքարոտ լանջերին և ժայռերի ճեղքերում։","Մսոտ տերևներում ջուր է կուտակում, ինչը թույլ է տալիս դիմանալ չորային պայմաններին։","Համարվում է հազվագյուտ բույս։ Պահպանության համար կարևոր է ժայռոտ ապրելավայրերի անխախտությունը։"]},
-{n:"Կոկոռ դեղին",l:"Nuphar lutea",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Ջրաշուշանազգիներ",g:"Nuphar",tg:[V],h:"Լճեր, դանդաղահոս ջրեր",r:"Ջրային և ճահճային վայրեր",e:"🪷",
-d:["Ջրային բույս է՝ ջրի երես լողացող լայն տերևներով և դեղին ծաղիկներով։","Աճում է մաքուր, դանդաղահոս կամ լճային ջրերում։","Տերևները ստվեր են տալիս ջրին, իսկ բույսը ապաստան է ձկների և երկկենցաղների համար։","Վտանգված է խոնավ ապրելավայրերի չորացման և ջրի աղտոտման պատճառով։"]},
-{n:"Անթառամ",l:"Helichrysum arenarium",t:"p",k:"Բույսեր",c:"Երկշաքիլավորներ",f:"Բարդածաղկավորներ",g:"Helichrysum",tg:[V],h:"Չոր լանջեր, ավազոտ և քարքարոտ հողեր",r:"Հայաստանի տարբեր շրջաններ",e:"🌻",
-d:["Ցեղ է, որի ծաղիկները չորանալուց հետո պահպանում են իրենց գույնը։ Դրանից էլ՝ «անթառամ» անվանումը։","Հայաստանում հանդիպում են մի քանի տեսակներ՝ չոր լանջերին և բաց տարածքներում։","Ծաղիկները գրավում են փոշոտող միջատներին, իսկ բույսը օգտագործվում է ժողովրդական բժշկության մեջ։","Գերհավաքումը նվազեցնում է պոպուլյացիացիաները, ուստի որոշ տեսակներ հազվագյուտ են։"]}
+{
+  n:"Կովկասյան ընձառյուծ", l:"Panthera pardus tulliana", t:"a", k:"Կենդանիներ", c:"Կաթնասուններ", f:"Կատվազգիներ", g:"Panthera", tg:[R,E],
+  h:"Լեռնային անտառներ, ժայռոտ կիրճեր", r:"Հայաստանի հարավ՝ Զանգեզուր, Խոսրովի անտառ", e:"🐆",
+  ls:"10-15 տարի (բնության մեջ)", of:"Բազմանում է տարին մեկ անգամ, ունենում է 1-4 ձագ (սովորաբար 2)",
+  img:"https://images.unsplash.com/photo-1456926631375-92c8ce872def?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Խոշոր կատվազգի գիշատիչ է՝ դեղնավուն մորթով և սև բծերով։ Տարածաշրջանի խոշորագույն կատվազգին է։",
+    "Հանդիպում է հիմնականում հարավային լեռնային շրջաններում՝ Զանգեզուրում և Խոսրովի արգելոցի շրջակայքում։",
+    "Սնվում է վայրի սմբակավորներով։ Որպես գագաթնային գիշատիչ՝ կարգավորում է որսակենդանիների թիվը։",
+    "Գրանցված է Հայաստանի Կարմիր գրքում։ Սպառնում են որսագողությունը և ապրելավայրերի կորուստը։"
+  ]
+},
+{
+  n:"Հայկական մուֆլոն", l:"Ovis gmelini gmelini", t:"a", k:"Կենդանիներ", c:"Կաթնասուններ", f:"Սնամեջեղջյուրավորներ", g:"Ovis", tg:[R,E],
+  h:"Չոր լեռնային տափաստաններ, քարքարոտ լանջեր", r:"Վայոց ձոր, Սյունիք, Գեղարքունիք", e:"🐏",
+  ls:"12-15 տարի", of:"Ունենում են 1 (հազվադեպ 2) գառնուկ՝ գարնանը",
+  img:"https://images.unsplash.com/photo-1484406573264-808628421f1f?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Վայրի ոչխար է։ Արուներն ունեն մեծ, պարուրաձև ոլորված եղջյուրներ։",
+    "Ապրում է քարքարոտ լեռնալանջերին, հատկապես Հայաստանի հարավում և արևելքում։",
+    "Սնվում է խոտաբույսերով, հոտերով տեղափոխվում է լանջերի միջև։",
+    "Գրանցված է Կարմիր գրքում։ Թիվը նվազել է որսագողության և արածեցման պատճառով։"
+  ]
+},
+{
+  n:"Բեզոարյան այծ", l:"Capra aegagrus", t:"a", k:"Կենդանիներ", c:"Կաթնասուններ", f:"Սնամեջեղջյուրավորներ", g:"Capra", tg:[R,V],
+  h:"Ժայռեր, կիրճեր, ալպյան մարգագետիններ", r:"Խոսրովի անտառ, Շիկահող, Զանգեզուր", e:"🐐",
+  ls:"10-15 տարի", of:"Ունենում են 1-2 ուլ",
+  img:"https://images.unsplash.com/photo-1527153857715-3908f2ae5e61?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Վայրի այծ է՝ երկար, կոր եղջյուրներով։ Համարվում է ընտանի այծի նախնին։",
+    "Հանդիպում է Հայաստանի հարավի քարքարոտ լեռներում՝ արգելոցների տարածքում։",
+    "Շատ ճարպիկ է ժայռերի վրա։ Սնվում է խոտով և թփերով։",
+    "Գրանցված է Կարմիր գրքում։ Պահպանվում է հատուկ պահպանվող տարածքներում։"
+  ]
+},
+{
+  n:"Կովկասյան Գորշ Արջ", l:"Ursus arctos arctos", t:"a", k:"Կենդանիներ", c:"Կաթնասուններ", f:"Արջազգիներ", g:"Ursus", tg:[V],
+  h:"Լեռնային անտառներ և մարգագետիններ", r:"Հյուսիսային և հարավային անտառային շրջաններ", e:"🐻",
+  ls:"20-30 տարի", of:"Ունենում են 1-3 մանր արջուկ (ձմռանը՝ որջում)",
+  img:"https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Խոշոր, գորշ մորթով ամենակեր կենդանի է։ Ձմռանը մտնում է ձմեռային քնի։",
+    "Ապրում է Հայաստանի անտառապատ լեռներում՝ Լոռիում, Տավուշում, Սյունիքում։",
+    "Սնվում է պտուղներով, արմատներով, միջատներով և մսով։",
+    "Հայաստանում թիվը սահմանափակ է։ Պահպանության համար կարևոր են անտառների պահպանումը։"
+  ]
+},
+{
+  n:"Սև արագիլ", l:"Ciconia nigra", t:"a", k:"Կենդանիներ", c:"Թռչուններ", f:"Արագիլազգիներ", g:"Ciconia", tg:[R,V],
+  h:"Անտառապատ գետահովիտներ, ժայռեր", r:"Դեբեդի, Աղստևի և Արփայի կիրճեր", e:"🐦",
+  ls:"15-20 տարի", of:"Դնում են 3-5 ձվադրություն, ունենում են 3-5 ձագ",
+  img:"https://images.unsplash.com/photo-1555169062-01347abf78fb?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1522926193636-bcf616f7fb8e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1508255302816-d3433c2a6d45?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Խոշոր թռչուն է՝ սև փետրավորմամբ, սպիտակ որովայնով և կարմիր կտուցով։",
+    "Բույն է դնում հանգիստ անտառներում և ժայռերի վրա, ապրում է գետերի մոտ։",
+    "Սնվում է ձկներով և երկկենցաղներով։ Գաղթող թռչուն է։",
+    "Գրանցված է Կարմիր գրքում։ Սպառնում են անհանգստությունը և ջրային ապրելավայրերի փոփոխությունը։"
+  ]
+},
+{
+  n:"Վարդակակաչ Սոսնովսկու", l:"Tulipa sosnowskyi", t:"p", k:"Բույսեր", c:"Միաշաքիլավորներ", f:"Շուշանազգիներ", g:"Tulipa", tg:[R,V],
+  h:"Լեռնային տափաստաններ, քարքարոտ լանջեր", r:"Հայկական լեռնաշխարհ, Հայաստանի լեռնային շրջաններ", e:"🌷",
+  ls:"Բազմամյա սոխուկավոր բույս", of:"Բազմանում է սոխուկներով և սերմերով",
+  img:"https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Վառ կարմիր ծաղիկներով սոխուկավոր բույս է, որը ծաղկում է գարնանը։",
+    "Աճում է չոր լեռնալանջերին և տափաստանային տարածքներում։",
+    "Գարնանային առաջին ծաղիկներից է և սնունդ է տալիս փոշոտող միջատներին։",
+    "Գրանցված է Կարմիր գրքում։ Սպառնում են ծաղիկների պոկումը և արածեցումը։"
+  ]
+},
+{
+  n:"Թրաշուշան Ջավախքի", l:"Gladiolus dzhavakheticus", t:"p", k:"Բույսեր", c:"Միաշաքիլավորներ", f:"Իրիսազգիներ", g:"Gladiolus", tg:[R,V],
+  h:"Լեռնային մարգագետիններ", r:"Հայաստան և Ջավախք", e:"🌺",
+  ls:"Բազմամյա բույս", of:"Բազմանում է պալարասոխուկներով և սերմերով",
+  img:"https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1533554476082-9d41d1378370?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Բազմամյա, թրաձև տերևներով և վարդագույն-մանուշակագույն ծաղիկներով բույս է։",
+    "Աճում է բարձրադիր մարգագետիններում Հայաստանի հյուսիսում և Ջավախքում։",
+    "Ծաղկում է ամռանը և նպաստում է մարգագետնային կենսաբազմազանությանը։",
+    "Գրանցված է Կարմիր գրքում։ Սպառնում են գերարածեցումը և ծաղիկների հավաքումը։"
+  ]
+},
+{
+  n:"Վարդակուկ ոսկեզօծ", l:"Prometheum chrysanthum", t:"p", k:"Բույսեր", c:"Երկշաքիլավորներ", f:"Հաստատերևազգիներ", g:"Prometheum", tg:[V],
+  h:"Քարքարոտ լանջեր, ժայռերի ճեղքեր", r:"Հայաստանի լեռնային շրջաններ", e:"🌼",
+  ls:"Բազմամյա սուկուլենտ բույս", of:"Բազմանում է սերմերով և վեգետատիվ ճանապարհով",
+  img:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Մսոտ տերևներով, վարդակի տեսքով բույս է՝ դեղին ծաղիկներով։",
+    "Աճում է քարքարոտ լանջերին և ժայռերի ճեղքերում։",
+    "Մսոտ տերևներում ջուր է կուտակում, ինչը թույլ է տալիս դիմանալ չորային պայմաններին։",
+    "Համարվում է հազվագյուտ բույս։ Պահպանության համար կարևոր է ժայռոտ ապրելավայրերի անխախտությունը։"
+  ]
+},
+{
+  n:"Կոկոռ դեղին", l:"Nuphar lutea", t:"p", k:"Բույսեր", c:"Երկշաքիլավորներ", f:"Ջրաշուշանազգիներ", g:"Nuphar", tg:[V],
+  h:"Լճեր, դանդաղահոս ջրեր", r:"Ջրային և ճահճային վայրեր", e:"🪷",
+  ls:"Բազմամյա ջրային բույս", of:"Բազմանում է սերմերով և կոճղարմատների բաժանմամբ",
+  img:"https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Ջրային բույս է՝ ջրի երես լողացող լայն տերևներով և դեղին ծաղիկներով։",
+    "Աճում է մաքուր, դանդաղահոս կամ լճային ջրերում։",
+    "Տերևները ստվեր են տալիս ջրին, իսկ բույսը ապաստան է ձկների և երկկենցաղների համար։",
+    "Վտանգված է խոնավ ապրելավայրերի չորացման և ջրի աղտոտման պատճառով։"
+  ]
+},
+{
+  n:"Անթառամ", l:"Helichrysum arenarium", t:"p", k:"Բույսեր", c:"Երկշաքիլավորներ", f:"Բարդածաղկավորներ", g:"Helichrysum", tg:[V],
+  h:"Չոր լանջեր, ավազոտ և քարքարոտ հողեր", r:"Հայաստանի տարբեր շրջաններ", e:"🌻",
+  ls:"Բազմամյա խոտաբույս", of:"Բազմանում է սերմերով",
+  img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
+  gal:[
+    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80"
+  ],
+  d:[
+    "Ցեղ է, որի ծաղիկները չորանալուց հետո պահպանում են իրենց գույնը։ Դրանից էլ՝ «անթառամ» անվանումը։",
+    "Հայաստանում հանդիպում են մի քանի տեսակներ՝ չոր լանջերին և բաց տարածքներում։",
+    "Ծաղիկները գրավում են փոշոտող միջատներին, իսկ բույսը օգտագործվում է ժողովրդական բժշկության մեջ։",
+    "Գերհավաքումը նվազեցնում է պոպուլյացիաները, ուստի որոշ տեսակներ հազվագյուտ են։"
+  ]
+}
 ];
 const SEC=["Ընդհանուր նկարագրություն","Տարածվածություն և ապրելավայրեր","Կենսակերպ և էկոլոգիական նշանակություն","Պահպանության վիճակը"];
-
-/* Վիքիպեդիայի հոդվածների ուղղված վերնագրեր՝ հատուկ կենդանիների և բույսերի իրական լուսանկարներ ստանալու համար */
-const WT=[
-  ["Leopard"],                              /* 1. Կովկասյան ընձառյուծ */
-  ["Armenian_mouflon","Mouflon"],           /* 2. Հայկական մուֆլոն */
-  ["Bezoar_ibex","Wild_goat"],              /* 3. Բեզոարյան այծ */
-  ["Brown_bear"],                           /* 4. Գորշ արջ */
-  ["Black_stork"],                          /* 5. Սև արագիլ */
-  ["Tulipa","Tulip"],                       /* 6. Վարդակակաչ */
-  ["Gladiolus"],                            /* 7. Թրաշուշան */
-  ["Sempervivum","Stonecrop"],              /* 8. Վարդակուկ (փոխարինված հստակ սուկուլենտ բույսով) */
-  ["Nuphar_lutea"],                         /* 9. Կոկոռ դեղին */
-  ["Helichrysum_arenarium","Helichrysum"]   /* 10. Անթառամ */
-];
-const API="https://en.wikipedia.org/api/rest_v1/";
-const BAD=/map|range|distribution|status|iucn|symbol|icon|logo|flag|coat|stamp|cites|skull|skeleton|diagram|chart|illustration|drawing|plate|painting|taxobox/i;
-const sz=(s,n)=>s.replace(/\/\d+px-/,"/"+n+"px-");
-const IMGS={};
-function wiki(i){
-  if(IMGS[i])return IMGS[i];
-  return IMGS[i]=(async()=>{
-    for(const t of WT[i]){
-      try{
-        const r=await fetch(API+"page/summary/"+t);
-        if(!r.ok)continue;
-        const j=await r.json();
-        const lead=j.originalimage||j.thumbnail;
-        if(!lead)continue;
-        const base=(j.thumbnail||j.originalimage).source;
-        const out={main:base,gal:[]};
-        const leadName=decodeURIComponent(lead.source.split("/").filter(Boolean).pop()).replace(/^\d+px-/,"").replace(/_/g," ");
-        try{
-          const title=(j.titles&&j.titles.canonical)||t;
-          const m=await fetch(API+"page/media-list/"+encodeURIComponent(title));
-          if(m.ok){
-            const mj=await m.json();
-            for(const it of (mj.items||[])){
-              if(it.type!=="image"||!it.srcset||!it.srcset.length)continue;
-              const nm=(it.title||"").replace(/^File:/,"").replace(/_/g," ");
-              if(!/\.(jpe?g|webp)$/i.test(nm)||BAD.test(nm)||nm===leadName)continue;
-              let s=it.srcset[0].src;
-              if(s.indexOf("//")===0)s="https:"+s;
-              out.gal.push(s);
-              if(out.gal.length>=3)break;
-            }
-          }
-        }catch(e){}
-        while(out.gal.length<3)out.gal.push(out.gal[0]||base);
-        return out;
-      }catch(e){}
-    }
-    return null;
-  })();
-}
-function setImg(el,u){
-  if(!u){el.style.display="none";return;}
-  el.onerror=()=>{ if(el.getAttribute("src")!==u){el.src=u;}else{el.style.display="none";} };
-  el.src=sz(u,500);
-}
-function hydrate(){
-  document.querySelectorAll("img[data-wi]").forEach(el=>{
-    const i=+el.dataset.wi,k=el.dataset.k;
-    wiki(i).then(d=>{
-      if(!d){el.style.display="none";return;}
-      setImg(el,k==="m"?d.main:d.gal[+k]);
-    });
-  });
-}
 
 let cat="all",tag=null,query="";
 const $=id=>document.getElementById(id);
@@ -164,27 +242,28 @@ function renderList(){
   <div class="grid sm:grid-cols-2 gap-4">${f.map(x=>`
     <a href="#a${x.i}" class="border rounded overflow-hidden hover:shadow-md transition bg-white block">
       <div class="h-36 bg-emerald-100 flex items-center justify-center text-6xl relative">${x.e}
-        <img data-wi="${x.i}" data-k="m" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
+        <img src="${x.img}" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
       <div class="p-3"><h3 class="font-bold text-blue-800">${x.n}</h3>
       <p class="sci text-sm text-gray-600">${x.l}</p>
       <div class="mt-2 flex flex-wrap gap-1">${x.tg.map(b=>`<span class="text-xs bg-amber-100 text-amber-800 px-2 rounded-full">${b}</span>`).join("")}</div></div>
     </a>`).join("")||"<p>Ոչինչ չի գտնվել։</p>"}</div>`;
-  hydrate();
 }
 function renderArticle(i){
   const x=D[i];
   $("main").innerHTML=`<a href="#" class="text-sm text-blue-700 hover:underline">← Վերադառնալ ցանկին</a>
   <h2 class="text-3xl font-serif border-b border-gray-400 mt-2 pb-1">${x.n}</h2>
   <p class="sci text-gray-600 mb-3">${x.l}</p>
-  <table class="ib float-none md:float-right md:ml-5 mb-4 w-full md:w-72 border border-gray-300 bg-gray-50">
+  <table class="ib float-none md:float-right md:ml-5 mb-4 w-full md:w-80 border border-gray-300 bg-gray-50">
     <tr><td colspan="2" class="text-center font-bold bg-emerald-100">${x.n}</td></tr>
     <tr><td colspan="2" class="p-0"><div class="h-44 bg-emerald-100 flex items-center justify-center text-7xl relative">${x.e}
-      <img data-wi="${i}" data-k="m" alt="${x.n}" class="absolute inset-0 w-full h-full object-cover"></div></td></tr>
+      <img src="${x.img}" alt="${x.n}" class="absolute inset-0 w-full h-full object-cover"></div></td></tr>
     <tr><th colspan="2" class="text-center">Գիտական դասակարգում</th></tr>
     <tr><th>Թագավորություն</th><td>${x.k}</td></tr>
     <tr><th>Դաս</th><td>${x.c}</td></tr>
     <tr><th>Ընտանիք</th><td>${x.f}</td></tr>
     <tr><th>Ցեղ</th><td class="sci">${x.g}</td></tr>
+    <tr><th>Կյանքի տևողություն</th><td>${x.ls}</td></tr>
+    <tr><th>Բազմացում / Ձագեր</th><td>${x.of}</td></tr>
     <tr><th>Պահպանության կարգավիճակ</th><td>${x.tg.join(", ")}</td></tr>
     <tr><th>Ապրելավայր</th><td>${x.h}</td></tr>
     <tr><th>Տարածվածություն</th><td>${x.r}</td></tr>
@@ -192,11 +271,10 @@ function renderArticle(i){
   ${SEC.map((s,k)=>`<h2 class="sec">${k+1}. ${s}</h2><p class="leading-7">${x.d[k]}</p>`).join("")}
   <div class="clear-both"></div>
   <h2 class="sec">Պատկերասրահ</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${[0,1,2].map(k=>`
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${x.gal.map((imgUrl, k)=>`
     <figure class="border rounded overflow-hidden"><div class="h-36 bg-emerald-100 flex items-center justify-center text-5xl relative">${x.e}
-    <img data-wi="${i}" data-k="${k}" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
+    <img src="${imgUrl}" alt="${x.n}" loading="lazy" class="absolute inset-0 w-full h-full object-cover"></div>
     <figcaption class="text-xs p-2 text-gray-600">${x.n}՝ պատկեր ${k+1}</figcaption></figure>`).join("")}</div>`;
-  hydrate();
   window.scrollTo(0,0);
 }
 function route(){
